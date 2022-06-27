@@ -38,8 +38,6 @@ public class User extends Timestamped {
     @Column(nullable = false, unique = true, length = 8)
     private String name; //유저 닉네임 최대 8글자
 
-    @Column(nullable = false, unique = true, length = 13)
-    private String phone_number; //유저 핸드폰 번호
 
 //    profile :
 
