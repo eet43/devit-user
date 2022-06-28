@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Entity
 public class Career {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

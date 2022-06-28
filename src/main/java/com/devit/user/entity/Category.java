@@ -11,13 +11,14 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private Long id; //고유 id 값
 
+    @Column(nullable = false, unique = true, length = 10)
     private String name; //카테고리 이름
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,5 +32,10 @@ public class Category {
     private List<Resume> resumes = new ArrayList<>();
 
 
-    //연관관계 메서드//
+    //생성 메서드//
+    public void addParent(Category category) {
+        this.setParent(category);
+        category.getChildren().add(this);
+    }
+
 }
