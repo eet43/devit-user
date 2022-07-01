@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -20,6 +22,14 @@ public class CategoryService {
     }
 
     public Category findCategory(Long id) {
-        return categoryRepository.findOne(id);
+        return categoryRepository.findById(id);
+    }
+
+    public Category findCategoryByName(String name) {
+        return categoryRepository.findByName(name);
+    }
+
+    public List<Category> findParentCategoires() {
+        return categoryRepository.findParentCategories();
     }
 }

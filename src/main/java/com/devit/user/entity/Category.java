@@ -11,7 +11,6 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-@NoArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +30,12 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Resume> resumes = new ArrayList<>();
 
+    @Column(nullable = false)
+    private Long depth; // 1이면 부모 2이면 자식
+
 
     //생성 메서드//
+
     public void addParent(Category category) {
         this.setParent(category);
         category.getChildren().add(this);

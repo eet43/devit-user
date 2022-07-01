@@ -26,9 +26,7 @@ public class User extends Timestamped {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //고유 식별자 값
 
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(nullable = false, unique = true, columnDefinition = "BINARY(16)", name = "user_id")
+    @Column(unique = true, columnDefinition = "BINARY(16)", name = "user_id")
     private UUID userId; //유저 식별 id 값
 
     @Email
@@ -44,5 +42,17 @@ public class User extends Timestamped {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resume_id")
     private Resume resume; //유저 이력서 -> 한 유저당 하나의 이력서만 가능.
+
+
+
+    /*생성 메서드 !!!! 반드시 static*/
+    public static User signUp(UUID uuid, String email, String name) {
+        User user = new User();
+        user.userId = uuid;
+        user.email = email;
+        user.name = name;
+
+        return user;
+    }
 
 }

@@ -19,7 +19,19 @@ public class CategoryRepository {
         return category.getId();
     }
 
-    public Category findOne(Long id) {
+    public Category findById(Long id) {
         return em.find(Category.class, id);
     }
+
+    public Category findByName(String name) {
+        return em.createQuery("select c from Category c where c.name = :name", Category.class)
+                .setParameter("name", name)
+                .getSingleResult();
+    }
+
+    public List<Category> findParentCategories() {
+        return em.createQuery("select c from Category c where c.depth = 1", Category.class)
+                .getResultList();
+    }
+
 }

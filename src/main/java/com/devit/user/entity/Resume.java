@@ -27,12 +27,15 @@ public class Resume extends Timestamped {
     @OneToOne(mappedBy = "resume")
     private User user;
 
+    private boolean gender; //성별
+
+    private int year; //출생년도
+
     @Column(nullable = false, unique = true, length = 13)
     private String phone_number; //유저 핸드폰 번호
 
-    private boolean gender;
+    private String introduce; //자기소개
 
-    private int year; //출생년도
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")

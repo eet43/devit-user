@@ -1,3 +1,7 @@
+# jwt secret key
+jwt:
+  secret: "50g/NGsxw15SwkKw8f+fxuXw6hBrEVYXCgJwyzItp8I="
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -7,13 +11,16 @@ spring:
 
   rabbitmq:
     host: localhost
-    username: guest
-    password: guest
-
+    password: 1234
+    port: 5672
+    username: devit
+    exchange: devit.exchange
+    queue: q.user
+    routingkey: devit.routingkey
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
