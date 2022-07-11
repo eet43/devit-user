@@ -6,6 +6,7 @@ import com.devit.user.dto.GetCategoryResponse;
 import com.devit.user.entity.Category;
 import com.devit.user.exception.NoResourceException;
 import com.devit.user.service.CategoryService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,6 @@ import java.util.stream.Collectors;
  * 1. 부모 카테고리 등록
  * 2. 자식 카테고리 등록
  * 3. 자식 카테고리들 조회
- * 4. 특정 카테고리 객체 조회
  */
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +27,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping("api/users/categories/parent") //1
+    @ApiOperation(value = "부모 카테고리 등록", notes = "부모 카테고리를 등록합니다.")
     public ResponseEntity<?> saveParentCategory(@RequestBody CreateParentCategoryRequest request) throws NoResourceException {
         Category category = new Category();
         category.setName(request.getName());
@@ -38,6 +39,7 @@ public class CategoryController {
     }
 
     @PostMapping("api/users/categories/children") //2
+    @ApiOperation(value = "자식 카테고리 등록", notes = "자식 카테고리를 등록합니다.")
     public ResponseEntity<?> saveChildCategory(@RequestBody CreateChildCategoryRequest request) throws NoResourceException {
 
         Category findParent = categoryService.findCategoryByName(request.getParentName());
@@ -53,6 +55,7 @@ public class CategoryController {
     }
 
     @GetMapping("api/users/categories") //3
+    @ApiOperation(value = "카테고리 조회", notes = "자식 카테고리를 조회합니다.")
     public ResponseEntity<?> getCategories() {
 
         List<Category> findParents = categoryService.findParentCategoires();

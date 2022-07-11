@@ -1,5 +1,7 @@
 package com.devit.user.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -7,6 +9,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
+@Getter @Setter
 public class Award {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +41,7 @@ public class Award {
     private String awards; //수상 내용 최대 10글자
 
     private String content; //추가 자기소개
+
 
 
     /* 생성 메서드 */

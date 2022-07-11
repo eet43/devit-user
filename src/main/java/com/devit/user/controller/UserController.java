@@ -30,8 +30,9 @@ import java.util.UUID;
 public class UserController {
     private final UserService userService;
     private final ResumeService resumeService;
-    /*
-    토큰 파싱해야함.
+
+    /**
+     * 1. 유저 프로필 조회
      */
 
     @GetMapping("/api/users")
