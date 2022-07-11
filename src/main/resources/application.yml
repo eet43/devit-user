@@ -14,9 +14,13 @@ spring:
     password: 1234
     port: 5672
     username: devit
-    exchange: devit.exchange
-    queue: q.user
     routingkey: devit.routingkey
+    user :
+      exchange: x.devit.user
+      queue: q.devit.user
+    board :
+      exchange: x.devit.board
+      queue: q.devit.board
 
   jpa:
     hibernate:

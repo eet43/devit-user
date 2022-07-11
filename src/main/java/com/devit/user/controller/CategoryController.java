@@ -10,10 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +18,8 @@ import java.util.stream.Collectors;
 /**
  * 1. 부모 카테고리 등록
  * 2. 자식 카테고리 등록
- * 3. 카테고리 조회
+ * 3. 자식 카테고리들 조회
+ * 4. 특정 카테고리 객체 조회
  */
 @RestController
 @RequiredArgsConstructor
@@ -54,7 +52,7 @@ public class CategoryController {
         return ResponseEntity.ok().body(saveCategoryId);
     }
 
-    @GetMapping("api/users/categories/") //3
+    @GetMapping("api/users/categories") //3
     public ResponseEntity<?> getCategories() {
 
         List<Category> findParents = categoryService.findParentCategoires();
@@ -66,12 +64,14 @@ public class CategoryController {
         return ResponseEntity.ok().body(result);
     }
 
+
     @Data
     @AllArgsConstructor
     static class Result<T> {
         private int count;
         private T data;
     }
+
 
 
 }

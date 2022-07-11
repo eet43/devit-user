@@ -33,8 +33,8 @@ public class User extends Timestamped {
     @Column(nullable = false, unique = true, length = 30)
     private String email; //유저 이메일
 
-    @Column(nullable = false, unique = true, length = 8)
-    private String name; //유저 닉네임 최대 8글자
+    @Column(nullable = false, unique = false, length = 8)
+    private String nickName; //유저 닉네임 최대 8글자
 
 
 //    profile :
@@ -50,7 +50,7 @@ public class User extends Timestamped {
         User user = new User();
         user.userId = uuid;
         user.email = email;
-        user.name = name;
+        user.nickName = name;
 
         return user;
     }

@@ -45,4 +45,20 @@ public class Education extends Timestamped {
 
     private String content; //추가 자기소개
 
+
+
+    /* 생성 메서드 */
+    public static Education createEducation(Resume resume, LocalDate startDate, LocalDate endDate, Status educationStatus
+            , String university, String department, String content) {
+        Education education = new Education();
+        education.resume = resume;
+        education.startDate = startDate;
+        education.endDate = endDate;
+        education.educationStatus = educationStatus;
+        education.university = university;
+        education.department = department;
+        education.content = content;
+
+        return education;
+    }
 }

@@ -1,6 +1,8 @@
 package com.devit.user.message;
 
+import com.devit.user.entity.Resume;
 import com.devit.user.entity.User;
+import com.devit.user.repository.ResumeRepository;
 import com.devit.user.repository.UserRepository;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ public class RabbitMqReceiver implements RabbitListenerConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(RabbitMqReceiver.class);
 
     private final UserRepository userRepository;
+    private final ResumeRepository resumeRepository;
 
     @Override
     public void configureRabbitListeners(RabbitListenerEndpointRegistrar rabbitListenerEndpointRegistrar) {
@@ -37,8 +40,11 @@ public class RabbitMqReceiver implements RabbitListenerConfigurer {
 
         // message : "회원가입" 검증 로직 필요 ?
 
-        User user = User.signUp(event.getUuid(), event.getEmail(), event.getName());
-        UUID save_uuid = userRepository.save(user);
+        User user = User.signUp(event.getUuid(), event.getEmail(), event.getNickName()); //유저 디비에 유저 저장
+        UUID user_uuid = userRepository.save(user);
+        Resume resume =  Resume.createDefaultResume(user); //해당 유저에 대한 기본 이력서 생성
+        UUID resume_uuid = resumeRepository.save(resume);
+
     }
 
 }

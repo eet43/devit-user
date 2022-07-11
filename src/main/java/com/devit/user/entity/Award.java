@@ -35,7 +35,23 @@ public class Award {
     private String competition; //대회 이름 최대 15글자
 
     @Column(nullable = false, length = 10)
-    private String award; //수상 내용 최대 10글자
+    private String awards; //수상 내용 최대 10글자
 
     private String content; //추가 자기소개
+
+
+    /* 생성 메서드 */
+    public static Award createAward(Resume resume, LocalDate startDate, LocalDate endDate, Status awardStatus
+            , String competition, String awards, String content) {
+        Award award = new Award();
+        award.resume = resume;
+        award.startDate = startDate;
+        award.endDate = endDate;
+        award.awardStatus = awardStatus;
+        award.competition = competition;
+        award.awards = awards;
+        award.content = content;
+
+        return award;
+    }
 }

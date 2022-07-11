@@ -37,4 +37,19 @@ public class Career {
     private String job; //학과 이름 최대 15글자
 
     private String content; //추가 자기소개
+
+    /* 생성 메서드 */
+    public static Career createCareer(Resume resume, LocalDate startDate, LocalDate endDate, Status careerStatus
+    , String office, String job, String content) {
+        Career career = new Career();
+        career.resume = resume;
+        career.startDate = startDate;
+        career.endDate = endDate;
+        career.careerStatus = careerStatus;
+        career.office = office;
+        career.job = job;
+        career.content = content;
+
+        return career;
+    }
 }

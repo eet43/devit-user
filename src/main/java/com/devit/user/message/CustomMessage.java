@@ -11,14 +11,14 @@ import java.io.Serializable;
 @Data
 public class CustomMessage implements Serializable{
     private String email;
-    private String name;
+    private String nickName;
     private UUID uuid;
 
     @Override
     public String toString() {
         return "{" +
                 "email='" + email + '\'' +
-                ", name='" + name + '\'' +
+                ", name='" + nickName + '\'' +
                 ", uuid=" + uuid +
                 '}';
     }
