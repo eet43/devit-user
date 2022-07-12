@@ -15,9 +15,7 @@ public class Award {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //고유 식별자 값
 
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(nullable = false, unique = true, columnDefinition = "BINARY(16)", name = "award_id")
+    @Column(unique = true, columnDefinition = "BINARY(16)", name = "award_id")
     private UUID awardId; //이력서 고유 id 값
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,8 +29,6 @@ public class Award {
     @Column(name = "end_date")
     private LocalDate endDate; //종료 날짜
 
-    @Enumerated(value = EnumType.STRING)
-    private Status awardStatus; //진행 중인지, 종료한 것인지 ?
 
     @Column(nullable = false, length = 15)
     private String competition; //대회 이름 최대 15글자
@@ -45,13 +41,12 @@ public class Award {
 
 
     /* 생성 메서드 */
-    public static Award createAward(Resume resume, LocalDate startDate, LocalDate endDate, Status awardStatus
+    public static Award createAward(Resume resume, LocalDate startDate, LocalDate endDate
             , String competition, String awards, String content) {
         Award award = new Award();
         award.resume = resume;
         award.startDate = startDate;
         award.endDate = endDate;
-        award.awardStatus = awardStatus;
         award.competition = competition;
         award.awards = awards;
         award.content = content;

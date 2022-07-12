@@ -58,14 +58,14 @@ public class Resume extends Timestamped {
     public static Resume createDefaultResume(User user) {
         Resume resume = new Resume();
         resume.user = user;
+        user.setResume(resume);
+        resume.resumeId = UUID.randomUUID();
 
         return resume;
     }
 
-    public static Resume editResume(User user, Gender gender, int year, String phone_number, String introduce, Category category,
+    public static Resume editResume(Resume resume, Gender gender, int year, String phone_number, String introduce, Category category,
     List<Education> educations, List<Career> careers, List<Award> awards) {
-        Resume resume = new Resume();
-        resume.user = user;
         resume.gender = gender;
         resume.year = year;
         resume.phone_number = phone_number;

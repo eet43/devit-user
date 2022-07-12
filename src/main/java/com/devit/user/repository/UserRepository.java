@@ -1,5 +1,6 @@
 package com.devit.user.repository;
 
+import com.devit.user.entity.Resume;
 import com.devit.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -29,6 +30,12 @@ public class UserRepository {
     public void deleteUser(UUID userId) {
         em.createQuery("delete from User u where u.userId = :userId")
                 .setParameter("userId", userId);
+    }
+
+    public Resume findResume(UUID userId) {
+        return em.createQuery("select u.resume from User u where u.userId = :userId", Resume.class)
+                .setParameter("userId", userId)
+                .getSingleResult();
     }
 
 

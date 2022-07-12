@@ -18,11 +18,4 @@ public class AwardRepository {
         return award;
     }
 
-    public Award findAwards(UUID uuid) {
-        Award findAward = em.createQuery("select a from Award where a.awardId = :awardId", Award.class)
-                .setParameter("awardId", uuid)
-                .getSingleResult();
-
-        return findAward;
-    }
 }

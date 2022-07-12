@@ -18,7 +18,7 @@ public class CustomMessage implements Serializable{
     public String toString() {
         return "{" +
                 "email='" + email + '\'' +
-                ", name='" + nickName + '\'' +
+                ", nickName='" + nickName + '\'' +
                 ", uuid=" + uuid +
                 '}';
     }

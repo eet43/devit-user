@@ -12,9 +12,7 @@ public class Career {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //고유 식별자 값
 
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(nullable = false, unique = true, columnDefinition = "BINARY(16)", name = "career_id")
+    @Column(unique = true, columnDefinition = "BINARY(16)", name = "career_id")
     private UUID careerId; //이력서 고유 id 값
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,6 +40,7 @@ public class Career {
     public static Career createCareer(Resume resume, LocalDate startDate, LocalDate endDate, Status careerStatus
     , String office, String job, String content) {
         Career career = new Career();
+        career.careerId = UUID.randomUUID();
         career.resume = resume;
         career.startDate = startDate;
         career.endDate = endDate;

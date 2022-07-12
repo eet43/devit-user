@@ -4,6 +4,7 @@ import com.devit.user.util.Timestamped;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -12,16 +13,13 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter @Setter
 public class Education extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //고유 식별자 값
 
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(nullable = false, unique = true, columnDefinition = "BINARY(16)", name = "education_id")
+    @Column(unique = true, columnDefinition = "BINARY(16)", name = "education_id")
     private UUID educationId; //이력서 고유 id 값
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -51,6 +49,7 @@ public class Education extends Timestamped {
     public static Education createEducation(Resume resume, LocalDate startDate, LocalDate endDate, Status educationStatus
             , String university, String department, String content) {
         Education education = new Education();
+        education.educationId = UUID.randomUUID();
         education.resume = resume;
         education.startDate = startDate;
         education.endDate = endDate;

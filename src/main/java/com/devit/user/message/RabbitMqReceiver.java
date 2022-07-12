@@ -34,7 +34,7 @@ public class RabbitMqReceiver implements RabbitListenerConfigurer {
 
     // 소비할 큐를 지정
     @Transactional
-    @RabbitListener(queues = "${spring.rabbitmq.queue}") //유저 큐라고 가정
+    @RabbitListener(queues = "${spring.rabbitmq.user.queue}") //유저 큐라고 가정
     public void receivedMessage(CustomMessage event) {
         logger.info("User Details Received is.. " + event);
 

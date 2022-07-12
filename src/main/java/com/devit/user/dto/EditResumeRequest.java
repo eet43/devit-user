@@ -12,6 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class EditResumeRequest {
+
     @NotNull
     private Gender gender; //성별
 

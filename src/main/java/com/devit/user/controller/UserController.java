@@ -47,7 +47,7 @@ public class UserController {
         UUID uuid = UUID.fromString(sample);
 
         User findUser = userService.findUser(uuid);
-        Resume findResume = resumeService.findByUser(findUser);
+        Resume findResume = resumeService.findByUser(uuid);
 
         int httpStatus = HttpStatusChangeInt.ChangeStatusCode("OK");
         String path = "api/users/";
