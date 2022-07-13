@@ -32,7 +32,7 @@ public class UserController {
     private final ResumeService resumeService;
 
     /**
-     * 1. 유저 프로필 조회
+     * 1. 유저 프로필 조회 (url : /api/users/)
      */
 
     @GetMapping("/api/users")
@@ -47,13 +47,12 @@ public class UserController {
         UUID uuid = UUID.fromString(sample);
 
         User findUser = userService.findUser(uuid);
-        Resume findResume = resumeService.findByUser(uuid);
 
         int httpStatus = HttpStatusChangeInt.ChangeStatusCode("OK");
         String path = "api/users/";
 
 
-        ResponseProfileDetails responseDetails = new ResponseProfileDetails(new Date(), findUser, findResume, httpStatus, path);
+        ResponseDetails responseDetails = new ResponseDetails(new Date(), findUser, httpStatus, path);
         return new ResponseEntity<>(responseDetails, HttpStatus.CREATED);
     }
 }

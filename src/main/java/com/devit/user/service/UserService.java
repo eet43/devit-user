@@ -1,5 +1,6 @@
 package com.devit.user.service;
 
+import com.devit.user.entity.Resume;
 import com.devit.user.entity.User;
 import com.devit.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,10 @@ public class UserService {
 
     public User findUser(UUID userId) {
         return userRepository.findByUUID(userId);
+    }
+
+    public Resume findResume(UUID userId) {
+        return userRepository.findResume(userId);
     }
 
 }

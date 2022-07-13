@@ -33,23 +33,12 @@ class ResumeServiceTest {
     @Autowired
     ResumeService resumeService;
 
-    @Test
-    public void 이력서_조회() throws Exception {
-        //given
-        UUID userId = UUID.fromString("ea579e47-fcff-40df-8cf7-1bc3136a584d");
-        User user = userService.findUser(userId);
-
-        //when
-        Resume resume = resumeService.findByUser(userId);
-
-        //then
-    }
 
     @Test
     public void 이력서_수정() throws Exception {
 
         UUID userId = UUID.fromString("ea579e47-fcff-40df-8cf7-1bc3136a584d");
-        Resume resume = resumeService.findByUser(userId);
+        Resume resume = userService.findResume(userId);
 
         //given
         Category category1 = new Category();

@@ -27,6 +27,8 @@ public class ResumeService {
 
         Resume resume = userRepository.findResume(userId);
 
+        //Null 값 들어왔을 시 비워주기
+
         List<Education> educationList = Optional.ofNullable(editResumeRequest.getEducations()).orElse(Collections.emptyList())
                 .stream()
                 .map(educationRepository::save)
@@ -39,14 +41,6 @@ public class ResumeService {
                 .stream()
                 .map(careerRepository::save)
                 .collect(Collectors.toList());
-
-//        List<Award> awardList = editResumeRequest.getAwards().stream()
-//                .filter(Objects::nonNull)
-//                .map(awardRepository::save)
-//                .collect(Collectors.toList());
-//        List<Career> careerList = editResumeRequest.getCareers().stream()
-//                .map(careerRepository::save)
-//                .collect(Collectors.toList());
 
         Category findCategory = categoryRepository.findByName(editResumeRequest.getCategoryName());
 

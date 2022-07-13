@@ -1,6 +1,7 @@
 package com.devit.user.entity;
 
 import com.devit.user.util.Timestamped;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Resume extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +23,6 @@ public class Resume extends Timestamped {
 
     @Column(nullable = false, unique = true, columnDefinition = "BINARY(16)", name = "resume_id")
     private UUID resumeId; //이력서 고유 id 값
-
-    @OneToOne(mappedBy = "resume")
-    private User user;
 
     @Enumerated(value = EnumType.STRING)
     private Gender gender; //성별
@@ -57,9 +56,8 @@ public class Resume extends Timestamped {
 
     public static Resume createDefaultResume(User user) {
         Resume resume = new Resume();
-        resume.user = user;
-        user.setResume(resume);
         resume.resumeId = UUID.randomUUID();
+        user.setResume(resume);
 
         return resume;
     }
