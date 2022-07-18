@@ -39,14 +39,14 @@ public class Resume extends Timestamped {
     @JoinColumn(name = "category_id")
     private Category category; //현재 직종 카테고리 (서버파트 => 스프링)
 
-    @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
-    private List<Education> educations = new ArrayList<>(); //학력사항 추가 가능 일대다
+    @OneToOne(mappedBy = "resume", cascade = CascadeType.ALL)
+    private Education educations; //학력사항 추가 가능 일대일
 
-    @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
-    private List<Career> careers = new ArrayList<>(); //경력사항 추가 가능 일대다
+    @OneToOne(mappedBy = "resume", cascade = CascadeType.ALL)
+    private Career careers; //경력사항 추가 가능 일대일
 
-    @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
-    private List<Award> awards = new ArrayList<>(); //수상 및 활동 추가 가능 일대다
+    @OneToOne(mappedBy = "resume", cascade = CascadeType.ALL)
+    private Award awards; //수상 및 활동 추가 가능 일대일
 
     /*생성 메서드*/
     /**
@@ -62,8 +62,9 @@ public class Resume extends Timestamped {
         return resume;
     }
 
+
     public static Resume editResume(Resume resume, Gender gender, int year, String phone_number, String introduce, Category category,
-    List<Education> educations, List<Career> careers, List<Award> awards) {
+    Education educations, Career careers, Award awards) {
         resume.gender = gender;
         resume.year = year;
         resume.phone_number = phone_number;

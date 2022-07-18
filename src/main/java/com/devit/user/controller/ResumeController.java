@@ -41,7 +41,7 @@ public class ResumeController {
 
     @PutMapping("/api/users/resumes") //수정되야함
     @ApiOperation(value = "이력서 수정", notes = "이력서를 수정합니다.")
-    public ResponseEntity<?> editResume(@RequestHeader("Authorization") String data, @RequestBody @Valid EditResumeRequest request) throws NoResourceException {
+    public ResponseEntity<?> editResume(@RequestHeader("Authorization") String data, @RequestBody EditResumeRequest request) throws NoResourceException {
 
         String[] chunks = data.split("\\.");
         Base64.Decoder decoder = Base64.getDecoder();
@@ -56,7 +56,7 @@ public class ResumeController {
 
         Resume editResume = resumeService.save(request, uuid);
 
-        int httpStatus = HttpStatusChangeInt.ChangeStatusCode("Edited");
+        int httpStatus = HttpStatusChangeInt.ChangeStatusCode("OK");
         String path = "api/users/resumes";
 
         ResponseDetails responseDetails = new ResponseDetails(new Date(), editResume, httpStatus, path);
@@ -73,6 +73,7 @@ public class ResumeController {
         JSONObject jsonObject = new JSONObject(payload);
         String sample = jsonObject.getString("uuid");
         UUID uuid = UUID.fromString(sample); //토큰 복호화 완료
+
 
         SendResumeMessage sendResumeMessage = new SendResumeMessage(uuid, request.getBoardId());
         rabbitMqSender.send(sendResumeMessage);
