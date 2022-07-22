@@ -6,9 +6,9 @@ name: devit user domain server CI/CD
 on:
   # Triggers the workflow on push or pull request events but only for the "feat/user-resume" branch
   push:
-    branches: [ "master" ]
+    branches: [ "feature/user-resume" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "feature/user-resume" ]
 env:
   S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
 
