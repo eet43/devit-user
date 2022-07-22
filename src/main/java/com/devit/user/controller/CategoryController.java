@@ -72,6 +72,8 @@ public class CategoryController {
     @ApiOperation(value = "카테고리 조회", notes = "자식 카테고리를 조회합니다.")
     public ResponseEntity<?> getCategories() {
 
+        log.info("category : 카테고리를 조회합니다.");
+
         List<Category> findParents = categoryService.findParentCategoires();
         List<GetCategoryResponse> collect = findParents.stream()
                 .map(c -> new GetCategoryResponse(c.getId(), c.getName(), c.getChildren()))
