@@ -1,5 +1,6 @@
 package com.devit.user.message;
 
+import com.devit.user.dto.ResumeDto;
 import com.devit.user.dto.SendResumeMessage;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,14 @@ public class RabbitMqSender {
     public RabbitMqSender(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
-    @Value("${spring.rabbitmq.user.exchange}")
+    @Value("${spring.rabbitmq.board.exchange}")
     private String exchange;
     @Value("${spring.rabbitmq.routingkey}")
     private String routingkey;
 
-    public void send(SendResumeMessage sendResumeMessage) {
-        rabbitTemplate.convertAndSend(exchange, routingkey, sendResumeMessage);
+    public String send(ResumeDto resumeDto) {
+        rabbitTemplate.convertAndSend(exchange, routingkey, resumeDto);
+
+        return "메시지 전송 완료";
     }
 }

@@ -38,5 +38,11 @@ public class UserRepository {
                 .getSingleResult();
     }
 
+    public Object findUserName(UUID userId) {
+        return em.createQuery("select u.name from User u where u.userId = :userId")
+                .setParameter("userId", userId)
+                .getSingleResult();
+    }
+
 
 }

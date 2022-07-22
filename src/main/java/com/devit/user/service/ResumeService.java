@@ -7,6 +7,7 @@ import com.devit.user.dto.EditResumeRequest;
 import com.devit.user.entity.*;
 import com.devit.user.repository.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@Slf4j
 @RequiredArgsConstructor
 public class ResumeService {
     private final ResumeRepository resumeRepository;
@@ -29,6 +31,10 @@ public class ResumeService {
     public Resume save(EditResumeRequest request, UUID userId) {
 
         Resume resume = userRepository.findResume(userId);
+
+        log.info("Resume(service) : {} 해당 유저의 이력서를 조회합니다.", resume);
+
+
         EditEducationDto eDto = request.getEducations();
         EditAwardDto aDto = request.getAwards();
         EditCareerDto cDto = request.getCareers();
@@ -36,43 +42,20 @@ public class ResumeService {
         Education education = Education.editEducation(resume.getEducations(), eDto.getStartDate(), eDto.getEndDate(), eDto.of(eDto.getEducationStatus()),
                 eDto.getUniversity(), eDto.getDepartment(), eDto.getContent());
 
+        log.info("Education(service) : {} 해당 유저의 교육사항을 조회합니다.", education);
+
+
         Career career = Career.editCareer(resume.getCareers(), cDto.getStartDate(), cDto.getEndDate(), cDto.of(cDto.getCareerStatus()),
                 cDto.getOffice(), cDto.getJob(), cDto.getContent());
+
+        log.info("Career(service) : {} 해당 유저의 개발사항을 조회합니다.", career);
+
 
         Award award = Award.editAward(resume.getAwards(), aDto.getStartDate(), aDto.getEndDate(), aDto.getCompetition(), aDto.getAwards(), aDto.getContent());
         //dirty check 가능
 
+        log.info("Award(service) : {} 해당 유저의 수상사항을 조회합니다.", award);
 
-        //Null 값 들어왔을 시 비워주기
-
-//        List<Education> educationList = Optional.ofNullable(editResumeRequest.getEducations()).orElse(Collections.emptyList())
-//                .stream()
-//                .map(dto -> {
-//                    Status educationStatus = dto.of(dto.getEducationStatus());
-//                    Education education = Education.editEducation(resume.get, dto.getStartDate(), dto.getEndDate(), educationStatus,
-//                            dto.getUniversity(), dto.getDepartment(), dto.getContent());
-//                    return educationRepository.save(education);
-//                })
-//                .collect(Collectors.toList());
-
-//        List<Award> awardList = Optional.ofNullable(editResumeRequest.getAwards()).orElse(Collections.emptyList())
-//                .stream()
-//                .map(dto -> {
-//                    Award award = Award.createAward(resume, dto.getStartDate(), dto.getEndDate(),
-//                            dto.getCompetition(), dto.getAwards(), dto.getContent());
-//                    return awardRepository.save(award);
-//                })
-//                .collect(Collectors.toList());
-//
-//        List<Career> careerList = Optional.ofNullable(editResumeRequest.getCareers()).orElse(Collections.emptyList())
-//                .stream()
-//                .map(dto -> {
-//                    Status careerStatus = dto.of(dto.getCareerStatus());
-//                    Career career = Career.createCareer(resume, dto.getStartDate(), dto.getEndDate(), careerStatus,
-//                            dto.getOffice(), dto.getJob(), dto.getContent());
-//                    return careerRepository.save(career);
-//                })
-//                .collect(Collectors.toList());
 
         Category findCategory = categoryRepository.findByName(request.getCategoryName());
         Gender gender = EditResumeRequest.of(request.getGender());

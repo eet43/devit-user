@@ -33,9 +33,10 @@ public class UserController {
 
     /**
      * 1. 유저 프로필 조회 (url : /api/users/)
+     * 2. 특정 유저 조회
      */
 
-    @GetMapping("/api/users")
+    @GetMapping("/")
     public ResponseEntity<?> getProfile(@RequestHeader("Authorization") String data) throws NoResourceException {
 
         String[] chunks = data.split("\\.");
@@ -48,8 +49,27 @@ public class UserController {
 
         User findUser = userService.findUser(uuid);
 
+        log.info("User : 프로필을 조회합니다. {}", findUser);
+
+
         int httpStatus = HttpStatusChangeInt.ChangeStatusCode("OK");
         String path = "api/users/";
+
+
+        ResponseDetails responseDetails = new ResponseDetails(new Date(), findUser, httpStatus, path);
+        return new ResponseEntity<>(responseDetails, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{uuid}")
+    public ResponseEntity<?> getProfile(@PathVariable("uuid") UUID userId) throws NoResourceException {
+
+
+        User findUser = userService.findUser(userId);
+
+        log.info("User : 해당 이력서를 조회합니다. {}", findUser);
+
+        int httpStatus = HttpStatusChangeInt.ChangeStatusCode("OK");
+        String path = "api/users/{uuid}";
 
 
         ResponseDetails responseDetails = new ResponseDetails(new Date(), findUser, httpStatus, path);

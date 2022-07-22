@@ -1,6 +1,8 @@
 package com.devit.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -9,6 +11,8 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
 public class Career {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
