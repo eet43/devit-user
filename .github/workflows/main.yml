@@ -79,7 +79,6 @@ jobs:
         run:
           aws deploy create-deployment
           --application-name DevitUser
-          --deployment-group-name board-group
+          --deployment-group-name user-group
           --file-exists-behavior OVERWRITE
-          --s3-location bucket=${{ secrets.S3_BUCKET_NAME }},bundleType=zip,key=board.zip
           --region ap-northeast-2
