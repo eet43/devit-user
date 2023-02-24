@@ -1,9 +1,7 @@
 package com.devit.user.message;
 
-import com.devit.user.entity.Resume;
-import com.devit.user.entity.User;
-import com.devit.user.repository.ResumeRepository;
-import com.devit.user.repository.UserRepository;
+import com.devit.user.entity.*;
+import com.devit.user.repository.*;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +25,9 @@ public class RabbitMqReceiver implements RabbitListenerConfigurer {
 
     private final UserRepository userRepository;
     private final ResumeRepository resumeRepository;
+    private final AwardRepository awardRepository;
+    private final EducationRepository educationRepository;
+    private final CareerRepository careerRepository;
 
     @Override
     public void configureRabbitListeners(RabbitListenerEndpointRegistrar rabbitListenerEndpointRegistrar) {
@@ -34,7 +35,7 @@ public class RabbitMqReceiver implements RabbitListenerConfigurer {
 
     // 소비할 큐를 지정
     @Transactional
-    @RabbitListener(queues = "${spring.rabbitmq.queue}") //유저 큐라고 가정
+    @RabbitListener(queues = "${spring.rabbitmq.user.queue}") //유저 큐라고 가정
     public void receivedMessage(CustomMessage event) {
         logger.info("User Details Received is.. " + event);
 
@@ -43,7 +44,17 @@ public class RabbitMqReceiver implements RabbitListenerConfigurer {
         User user = User.signUp(event.getUuid(), event.getEmail(), event.getNickName()); //유저 디비에 유저 저장
         UUID user_uuid = userRepository.save(user);
         Resume resume =  Resume.createDefaultResume(user); //해당 유저에 대한 기본 이력서 생성
+
         UUID resume_uuid = resumeRepository.save(resume);
+
+        Education education = Education.createDefaultEducation(resume);
+        Award award = Award.createDefaultAward(resume);
+        Career career = Career.createDefaultCareer(resume);
+
+        Education save_edu = educationRepository.save(education);
+        Award save_award = awardRepository.save(award);
+        Career save_car = careerRepository.save(career);
+        //한번에 수정할 수는 없을까 ?
 
     }
 

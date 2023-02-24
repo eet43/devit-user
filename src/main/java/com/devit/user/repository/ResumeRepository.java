@@ -18,10 +18,12 @@ public class ResumeRepository {
         return resume.getResumeId();
     }
 
-    public Resume findByUser(User user) {
-        return em.createQuery("select r from Resume r where r.user = :user", Resume.class)
-                .setParameter("user", user)
+    public Resume findByUser(UUID userID) {
+        return em.createQuery("select r from Resume r join r.user u " +
+                        "where u.userId = :userId", Resume.class)
+                .setParameter("userId", userID)
                 .getSingleResult();
     }
+
 
 }

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ import java.util.UUID;
  */
 
 @Entity
-@Getter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //외부 생성 금지
 @Table(name = "user")
 public class User extends Timestamped {
@@ -46,11 +47,11 @@ public class User extends Timestamped {
 
 
     /*생성 메서드 !!!! 반드시 static*/
-    public static User signUp(UUID uuid, String email, String name) {
+    public static User signUp(UUID uuid, String email, String nickName) {
         User user = new User();
         user.userId = uuid;
         user.email = email;
-        user.nickName = name;
+        user.nickName = nickName;
 
         return user;
     }
