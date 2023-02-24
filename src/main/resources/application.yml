@@ -7,13 +7,13 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://database-devit-user.copkmnpqtze8.ap-northeast-2.rds.amazonaws.com:3306/devit_user?characterEncoding=utf8
-    username: daehee
-    password: tjseo1024
+    url:
+    username: 
+    password: 
 
   rabbitmq:
     host: 52.79.236.81
-    password: 1234
+    password: 
     port: 5672
     username: devit
     routingkey: devit.routingkey
