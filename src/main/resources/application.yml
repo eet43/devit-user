@@ -1,6 +1,6 @@
 # jwt secret key
 jwt:
-  secret: "50g/NGsxw15SwkKw8f+fxuXw6hBrEVYXCgJwyzItp8I="
+  secret: 
 
 spring:
   main:
